@@ -9,19 +9,17 @@
 <style>
   :root {
     --bg: #ffffff;
-    --blue:    #eaf2fd;
-    --blue2:   #d0e6f9;
-    --blue3:   #9dc4e8;
-    --accent-blue:   #2f6bcc;
-    --accent-blue2:  #1a4fa0;
-    --border:   #cfe0f2;
-    --text:  #1a2333;
-    --muted: #6b7c93;
+    --green:   #eef6f0;
+    --green2:  #d0e8d8;
+    --green3:  #8fc4a0;
+    --accent:  #2d7a4f;
+    --accent2: #1a5235;
+    --border:  #c8e0d0;
+    --text:    #0f1f15;
+    --muted:   #5a7060;
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
     color: var(--text);
@@ -31,36 +29,35 @@
     line-height: 1.75;
     overflow-x: hidden;
   }
-
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.95);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     padding: 0 40px;
     display: flex; align-items: center; justify-content: space-between;
-    height: 52px;
+    height: 60px;
   }
-  .nav-logo { font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.08em; color: var(--accent-blue); }
+  .nav-logo img { height: 44px; width: auto; display: block; }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.15s; font-family: 'DM Mono', monospace; }
   .nav-links a:hover { color: var(--text); }
   @media(max-width:560px){ .nav-links { display:none; } }
 
   .hero {
-    padding: 118px 24px 64px;
+    padding: 120px 24px 64px;
     text-align: center;
     border-bottom: 1px solid var(--border);
-    background: linear-gradient(160deg, rgba(200,224,252,0.18) 0%, rgba(214,233,252,0.12) 55%, #fff 100%);
+    background: #fff;
   }
   .venue-tag {
     display: inline-flex; align-items: center; gap: 7px;
-    background: rgba(255,255,255,0.85); border: 1px solid var(--blue3);
+    background: rgba(255,255,255,0.9); border: 1px solid var(--green3);
     border-radius: 999px; padding: 5px 16px;
     font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--accent-blue); margin-bottom: 32px; animation: fadeUp 0.7s ease both;
+    color: var(--accent); margin-bottom: 32px; animation: fadeUp 0.7s ease both;
   }
-  .venue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-blue); animation: pulse 2s ease infinite; }
+  .venue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
   h1 {
@@ -69,7 +66,7 @@
     max-width: 740px; margin: 0 auto; color: var(--text);
     animation: fadeUp 0.8s 0.05s ease both;
   }
-  h1 em { font-style: italic; color: var(--accent-blue); }
+  h1 em { font-style: italic; color: var(--accent); }
 
   .hero-subtitle {
     margin: 18px auto 0; font-size: 1.05rem; color: var(--muted);
@@ -79,9 +76,9 @@
     margin-top: 34px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px;
     font-size: 0.92rem; color: var(--text); animation: fadeUp 0.8s 0.18s ease both;
   }
-  .author sup { color: var(--accent-blue); font-size: 0.65em; }
+  .author sup { color: var(--accent); font-size: 0.65em; }
   .affiliations { margin-top: 12px; font-size: 0.82rem; color: var(--muted); animation: fadeUp 0.8s 0.22s ease both; }
-  .affiliations sup { color: var(--accent-blue); }
+  .affiliations sup { color: var(--accent); }
 
   .actions {
     margin-top: 34px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
@@ -92,10 +89,10 @@
     font-family: 'DM Mono', monospace; font-size: 0.8rem; letter-spacing: 0.05em;
     text-decoration: none; cursor: pointer; transition: all 0.18s; border: none;
   }
-  .btn-blue  { background: var(--accent-blue);  color: #fff; }
-  .btn-blue:hover  { background: #2558b0; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(47,107,204,0.28); }
-  .btn-blue2 { background: var(--accent-blue2); color: #fff; }
-  .btn-blue2:hover { background: #153e80; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,79,160,0.28); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(45,122,79,0.3); }
+  .btn-secondary { background: var(--text); color: #fff; }
+  .btn-secondary:hover { background: #1e3828; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(15,31,21,0.3); }
 
   section { padding: 72px 24px; }
   .container { max-width: 900px; margin: 0 auto; }
@@ -103,39 +100,23 @@
 
   .section-label {
     font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase;
-    margin-bottom: 12px; color: var(--accent-blue); display: inline-block;
+    margin-bottom: 12px; color: var(--accent); display: inline-block;
   }
   h2 {
     font-family: 'Lora', serif; font-size: clamp(1.5rem, 3vw, 2.1rem);
     font-weight: 600; line-height: 1.25; letter-spacing: -0.01em;
     margin-bottom: 18px; color: var(--text);
   }
-  p { color: #3d5166; margin-bottom: 14px; font-size: 1rem; line-height: 1.85; }
-
-  .abstract-box {
-    background: rgba(234,242,253,0.1);
-    border-radius: 0 12px 12px 0; padding: 28px 32px;
-    font-size: 1.2rem; line-height: 1.9; color: #3d5166;
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent-blue);
-  }
-  .abstract-box strong { color: var(--text); font-weight: 500; }
+  p { color: #2a3d2e; margin-bottom: 14px; font-size: 1rem; line-height: 1.85; }
 
   .figure-wrap {
-    background: rgba(234,242,253,0.06);
     border: 1px solid var(--border);
     border-radius: 14px; padding: 28px; margin-top: 28px;
   }
-
   .paper-img {
-    width: 100%;
-    display: block;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: #fff;
-    object-fit: contain;
+    width: 100%; display: block; border-radius: 10px;
+    border: 1px solid var(--border); background: #fff; object-fit: contain;
   }
-
   .figure-caption {
     font-size: 0.95rem; color: var(--muted); line-height: 1.65;
     border-top: 1px solid var(--border); padding-top: 16px; margin-top: 20px;
@@ -143,31 +124,45 @@
   }
   .figure-caption strong { color: var(--text); }
 
-  .stage-stack { display: flex; flex-direction: column; gap: 20px; margin-top: 24px; }
-  .stage-card { border-radius: 12px; padding: 26px 28px; border: 1px solid transparent; }
-  .stage-card-1 { background: rgba(234,242,253,0.15); border-color: var(--blue3); }
-  .stage-card-2 { background: rgba(255,255,255,0.95); border-color: var(--blue2); }
+  /* Motivating question */
+  .mot-question {
+    border-left: 3px solid var(--accent);
+    margin: 0 0 28px 0; padding: 16px 28px;
+    font-style: italic; color: var(--text);
+    font-size: 1.45rem; line-height: 1.7; font-weight: 600;
+  }
 
-  .stage-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; color: var(--accent-blue); }
-  .stage-title { font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 12px; color: var(--text); }
-  .stage-body { font-size: 1.2rem; color: #3d5166; line-height: 1.85; }
-  .stage-body strong { color: var(--text); font-weight: 500; }
+  /* Abstract plain text */
+  .abstract-body { font-size: 1rem; line-height: 1.9; color: #2a3d2e; }
+  .abstract-body strong { color: var(--text); font-weight: 600; }
+
+  /* Stage cards */
+  .stage-stack { display: flex; flex-direction: column; gap: 20px; margin-top: 24px; }
+  .stage-card { border-radius: 12px; padding: 26px 28px; border: 1px solid var(--border); }
+  .stage-card-1 { background: #fff; }
+  .stage-card-2 { background: #fff; }
+  .stage-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; color: var(--accent); }
+  .stage-title { font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+  .stage-body { font-size: 1rem; color: #2a3d2e; line-height: 1.85; }
+  .stage-body strong { color: var(--text); font-weight: 600; }
 
   .pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
   .pill { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 11px; border-radius: 999px; }
-  .pill-blue  { background: rgba(47,107,204,0.07); border: 1px solid rgba(47,107,204,0.2); color: var(--accent-blue); }
-  .pill-blue2 { background: rgba(26,79,160,0.06);  border: 1px solid rgba(26,79,160,0.18); color: var(--accent-blue2); }
+  .pill-1 { background: transparent; border: 1px solid rgba(45,122,79,0.25); color: var(--accent); }
+  .pill-2 { background: rgba(26,82,53,0.06); border: 1px solid rgba(26,82,53,0.2); color: var(--accent2); }
 
+  /* Reward grid */
   .reward-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 20px; }
   @media(max-width:600px){ .reward-grid { grid-template-columns: 1fr; } }
-  .reward-card { background: rgba(255,255,255,0.9); border: 1px solid var(--blue2); border-radius: 9px; padding: 15px 13px; }
+  .reward-card { background: #fff; border: 1px solid var(--green2); border-radius: 9px; padding: 15px 13px; }
   .reward-icon { font-size: 1.1rem; margin-bottom: 6px; }
-  .reward-name { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.05em; color: var(--accent-blue2); margin-bottom: 6px; }
-  .reward-desc { font-size: 0.8rem; color: #4b6070; }
+  .reward-name { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.05em; color: var(--accent2); margin-bottom: 6px; }
+  .reward-desc { font-size: 0.8rem; color: #3a5240; }
 
+  /* Results table */
   .results-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); margin-top: 24px; }
   table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
-  thead tr { background: rgba(220,235,250,0.25); }
+  thead tr { background: #fff; }
   thead th {
     padding: 13px 14px; text-align: center;
     font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
@@ -176,33 +171,34 @@
   thead th:first-child { text-align: left; }
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: rgba(47,107,204,0.03); }
-  td { padding: 11px 14px; text-align: center; color: #4b6070; }
+  tbody tr:hover { background: rgba(0,0,0,0.02); }
+  td { padding: 11px 14px; text-align: center; color: #3a5240; }
   td:first-child { text-align: left; color: var(--text); }
   .group-header td {
-    background: rgba(220,235,250,0.12); color: var(--muted);
+    background: #f9f9f9; color: var(--muted);
     font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
     padding: 7px 14px; border-top: 1px solid var(--border);
   }
   .best { color: var(--text); font-weight: 600; }
-  .model-ours { background: rgba(220,235,250,0.08); }
-  .model-ours td { color: var(--accent-blue); }
-  .model-ours td:first-child { font-weight: 600; color: var(--accent-blue); }
+  .model-ours { background: transparent; }
+  .model-ours td { color: var(--accent); }
+  .model-ours td:first-child { font-weight: 600; color: var(--accent); }
 
+  /* Citation */
   .citation-box {
-    background: rgba(244,249,255,0.8); border: 1px solid var(--border); border-radius: 12px;
+    background: #f9f9f9; border: 1px solid var(--border); border-radius: 12px;
     padding: 22px 26px; font-family: 'DM Mono', monospace; font-size: 0.79rem; line-height: 1.9;
-    color: #4b6070; position: relative; overflow-x: auto; margin-top: 22px;
+    color: #3a5240; position: relative; overflow-x: auto; margin-top: 22px;
   }
   .copy-btn {
     position: absolute; top: 14px; right: 14px; background: #fff; border: 1px solid var(--border);
     color: var(--muted); font-family: 'DM Mono', monospace; font-size: 10px;
     padding: 4px 11px; border-radius: 5px; cursor: pointer; transition: all 0.15s;
   }
-  .copy-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
 
   footer { padding: 36px 24px; text-align: center; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.82rem; }
-  footer a { color: var(--accent-blue); text-decoration: none; }
+  footer a { color: var(--accent); text-decoration: none; }
 
   @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
@@ -212,7 +208,7 @@
 <body>
 
 <nav>
-  <div class="nav-logo">DeScore</div>
+  <div class="nav-logo"><img src="logo.png" alt="DeScore"></div>
   <ul class="nav-links">
     <li><a href="#abstract">Abstract</a></li>
     <li><a href="#overview">Overview</a></li>
@@ -246,8 +242,8 @@
     <span style="font-size:0.76rem;margin-top:4px;display:block;">§ Equal Contribution &nbsp;&nbsp; † Corresponding Authors &nbsp;&nbsp; ‡ Project Lead</span>
   </div>
   <div class="actions">
-    <a class="btn btn-blue" href="https://arxiv.org/abs/2605.05922" target="_blank">📄 Paper</a>
-    <a class="btn btn-blue2" href="#" onclick="alert('Code coming soon!')">⌗ Code &amp; Model (Soon)</a>
+    <a class="btn btn-primary" href="https://arxiv.org/abs/2605.05922" target="_blank">📄 Paper</a>
+    <a class="btn btn-secondary" href="#" onclick="alert('Code coming soon!')">⌗ Code &amp; Model (Soon)</a>
   </div>
 </div>
 
@@ -257,7 +253,10 @@
   <div class="container reveal">
     <div class="section-label">Abstract</div>
     <h2>The Dilemma of Video Reward Modeling</h2>
-    <div class="abstract-box">
+    <blockquote class="mot-question">
+      How can we harness the interpretability and generalization introduced by CoT reasoning during reward modeling while shielding the training process from the optimization instability of a coupled sampling chain?
+    </blockquote>
+    <div class="abstract-body">
       Recent advances in generative video models are increasingly driven by post-training and test-time scaling, both of which critically depend on the quality of <strong>video reward models (RMs)</strong>. An ideal reward model should predict accurate rewards that align with human preferences across diverse scenarios. However, existing paradigms face a fundamental dilemma:
       <br><br>
       <strong>Discriminative RMs</strong> regress rewards directly from MLLM features without explicit reasoning, making them prone to shortcut learning and heavily reliant on massive data scaling. <strong>Generative RMs with CoT reasoning</strong> exhibit superior interpretability and generalization, but suffer from optimization bottlenecks due to the coupling of reasoning and scoring within a single autoregressive chain.
@@ -277,7 +276,7 @@
     <div class="figure-wrap">
       <img src="intro_01.png" class="paper-img" alt="Figure 1: Three video reward modeling paradigms">
       <div class="figure-caption">
-        <strong>Figure 1:</strong> <strong>Overview and Motivation of DeScore.</strong> (a) Video Reward Modeling Paradigms. Existing video reward models generally follow two paradigms: Discriminative RMs directly regress rewards without explicit thinking (e.g., CoT), and Generative RMs couple thinking and scoring within a single autoregressive sampling chain. DeScore improves both paradigms based on two observations: First, (b) <strong>Preference Accuracy</strong> shows that incorporating CoT enables Generative RMs to outperform Discriminative RMs, highlighting the necessity of explicit thinking for generalization. Second, (c) <strong>Training Stability</strong> reveals that coupling thinking and scoring requires the final score to be optimized through GRPO loss, leading to pronounced training fluctuations. In contrast, discriminative training with BT loss exhibits smooth convergence. Motivated by these findings, DeScore introduces a decoupled “think-then-score” paradigm that effectively leverages the generalization benefits of CoT reasoning while preserving the training stability inherent to discriminative optimization.
+        <strong>Figure 1:</strong> <strong>Overview and Motivation of DeScore.</strong> (a) Video Reward Modeling Paradigms. Existing video reward models generally follow two paradigms: Discriminative RMs directly regress rewards without explicit thinking (e.g., CoT), and Generative RMs couple thinking and scoring within a single autoregressive sampling chain. DeScore improves both paradigms based on two observations: First, (b) <strong>Preference Accuracy</strong> shows that incorporating CoT enables Generative RMs to outperform Discriminative RMs, highlighting the necessity of explicit thinking for generalization. Second, (c) <strong>Training Stability</strong> reveals that coupling thinking and scoring requires the final score to be optimized through GRPO loss, leading to pronounced training fluctuations. In contrast, discriminative training with BT loss exhibits smooth convergence. Motivated by these findings, DeScore introduces a decoupled "think-then-score" paradigm that effectively leverages the generalization benefits of CoT reasoning while preserving the training stability inherent to discriminative optimization.
       </div>
     </div>
   </div>
@@ -302,14 +301,24 @@
         <div class="stage-num">Stage 1</div>
         <div class="stage-title">Discriminative Cold Start</div>
         <p class="stage-body">Fine-tunes the backbone and scoring module on pre-collected CoT data using <strong>Bradley-Terry (BT) loss</strong>. A <strong>random CoT masking</strong> strategy randomly drops the CoT during training, forcing the module to jointly leverage raw multimodal inputs and reasoning tokens — preventing over-reliance on either source and improving robustness.</p>
+        <div class="pill-row">
+          <span class="pill pill-1">BT Loss</span>
+          <span class="pill pill-1">LoRA rank=64</span>
+          <span class="pill pill-1">2 epochs · lr=2e-6</span>
+          <span class="pill pill-1">Random CoT Mask</span>
+        </div>
       </div>
-
       <div class="stage-card stage-card-2">
         <div class="stage-num">Stage 2</div>
         <div class="stage-title">Dual-Objective Reinforcement Learning</div>
         <p class="stage-body">Two independent objectives run simultaneously. <strong>GRPO loss</strong> refines CoT quality guided by rule-based rollout rewards. <strong>Auxiliary BT loss</strong> continuously calibrates the scalar reward head, ensuring CoT improvements translate directly to reward accuracy and preventing "reward drift."</p>
-        <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--blue2);">
-          <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-blue2);margin-bottom:12px;">
+        <div class="pill-row">
+          <span class="pill pill-2">GRPO (α=1.0)</span>
+          <span class="pill pill-2">Aux BT (α=0.005)</span>
+          <span class="pill pill-2">G=8 rollouts · 65 steps</span>
+        </div>
+        <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--green2);">
+          <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:12px;">
             Composite Rollout Reward R(o) — three rule-based signals
           </div>
           <div class="reward-grid">
@@ -378,19 +387,18 @@
     </div>
     <p style="margin-top:12px;font-size:0.82rem;color:var(--muted);">Bold = best result per column. DeScore achieves top performance across most benchmarks while using <strong style="color:var(--text)">76% less training data</strong> than comparable models.</p>
 
-    <div class="figure-wrap" style="margin-top:0;">
-        <img src="efficient_01.png" class="paper-img" alt="Preference and data size">
-        <div class="figure-caption" style="margin-top:14px;">
+    <div class="figure-wrap" style="margin-top:28px;">
+      <img src="efficient_01.png" class="paper-img" alt="Preference and data size">
+      <div class="figure-caption" style="margin-top:14px;">
         <strong>Figure: Performance vs. Training Data Size.</strong> DeScore (red star) consistently outperforms existing models by a large margin while requiring only a fraction of the training data, highlighting its extreme training efficiency and robust semantic understanding.
-        </div>
+      </div>
     </div>
-    
-    <div class="figure-wrap" style="margin-top:0;">
-        <img src="case_01.png" class="paper-img" alt="Case study">
-        <div class="figure-caption" style="margin-top:14px;">
-        <strong>Figure: Qualitative Comparison of Different Video Reward Models. </strong> We compare VideoAlign , UnifiedReward-Thinking , and our DeScore with high- and low-quality reasoning within these responses. DeScore consistently yields accurate rewards and robust reasoning across varied prompts, demonstrating its superior interpretability and generalization. DeScore decouples reasoning from scoring yields two clear advantages: (1) <strong>error tolerance</strong>, where DeScore remains accurate even with imperfect CoT (e.g. top-left case), and (2) <strong>fine-grained discrimination</strong>, where it can still produce differentiated scores when generative models output identical reward tokens (e.g. bottom-left case). These results show that DeScore effectively combines reasoning interpretability with robust reward prediction.
 
-        </div>
+    <div class="figure-wrap" style="margin-top:28px;">
+      <img src="case_01.png" class="paper-img" alt="Case study">
+      <div class="figure-caption" style="margin-top:14px;">
+        <strong>Figure: Qualitative Comparison of Different Video Reward Models.</strong> We compare VideoAlign, UnifiedReward-Thinking, and our DeScore with high- and low-quality reasoning within these responses. DeScore consistently yields accurate rewards and robust reasoning across varied prompts, demonstrating its superior interpretability and generalization. DeScore decouples reasoning from scoring yields two clear advantages: (1) <strong>error tolerance</strong>, where DeScore remains accurate even with imperfect CoT (e.g. top-left case), and (2) <strong>fine-grained discrimination</strong>, where it can still produce differentiated scores when generative models output identical reward tokens (e.g. bottom-left case). These results show that DeScore effectively combines reasoning interpretability with robust reward prediction.
+      </div>
     </div>
 
     <div style="margin-top:48px;" class="reveal">
@@ -423,8 +431,6 @@
         </table>
       </div>
     </div>
-
-
   </div>
 </section>
 
@@ -437,15 +443,16 @@
     <p>If you find DeScore useful in your research, please consider citing:</p>
     <div class="citation-box">
       <button class="copy-btn" onclick="copyBibtex()">Copy</button>
-@article{wang2026descore,<br>
-&nbsp;&nbsp;title={Think, then Score: Decoupled Reasoning and Scoring<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for Video Reward Modeling},<br>
-&nbsp;&nbsp;author={Wang, Yuan and Li, Ouxiang and Xu, Yulong and Liao, Borui<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Liang, Jiajun and Li, Jinghan and Wang, Meng<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Wang, Xintao and Wan, Pengfei and Liu, Kuien<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Wang, Xiang},<br>
-&nbsp;&nbsp;journal={arXiv preprint arXiv:2605.05922},<br>
-&nbsp;&nbsp;year={2026}<br>
+@misc{wang2026thinkscoredecoupledreasoning,<br>
+&nbsp;&nbsp;title={Think, then Score: Decoupled Reasoning and Scoring for Video Reward Modeling},<br>
+&nbsp;&nbsp;author={Yuan Wang and Ouxiang Li and Yulong Xu and Borui Liao and Jiajun Liang<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Jinghan Li and Meng Wang and Xintao Wang and Pengfei Wang<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Kuien Liu and Xiang Wang},<br>
+&nbsp;&nbsp;year={2026},<br>
+&nbsp;&nbsp;eprint={2605.05922},<br>
+&nbsp;&nbsp;archivePrefix={arXiv},<br>
+&nbsp;&nbsp;primaryClass={cs.CV},<br>
+&nbsp;&nbsp;url={https://arxiv.org/abs/2605.05922}<br>
 }
     </div>
   </div>
@@ -463,18 +470,18 @@
 
   function copyBibtex() {
     const raw = `@misc{wang2026thinkscoredecoupledreasoning,
-      title={Think, then Score: Decoupled Reasoning and Scoring for Video Reward Modeling}, 
-      author={Yuan Wang and Ouxiang Li and Yulong Xu and Borui Liao and Jiajun Liang and Jinghan Li and Meng Wang and Xintao Wang and Pengfei Wang and Kuien Liu and Xiang Wang},
-      year={2026},
-      eprint={2605.05922},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2605.05922}, 
+  title={Think, then Score: Decoupled Reasoning and Scoring for Video Reward Modeling},
+  author={Yuan Wang and Ouxiang Li and Yulong Xu and Borui Liao and Jiajun Liang and Jinghan Li and Meng Wang and Xintao Wang and Pengfei Wang and Kuien Liu and Xiang Wang},
+  year={2026},
+  eprint={2605.05922},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2605.05922}
 }`;
     navigator.clipboard.writeText(raw).then(() => {
       const btn = document.querySelector('.copy-btn');
       btn.textContent = 'Copied!';
-      btn.style.color = 'var(--accent-blue)';
+      btn.style.color = 'var(--accent)';
       setTimeout(() => { btn.textContent = 'Copy'; btn.style.color = ''; }, 2000);
     });
   }
