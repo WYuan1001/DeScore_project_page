@@ -115,7 +115,7 @@
   .abstract-box {
     background: rgba(234,242,253,0.1);
     border-radius: 0 12px 12px 0; padding: 28px 32px;
-    font-size: 1rem; line-height: 1.9; color: #3d5166;
+    font-size: 1.2rem; line-height: 1.9; color: #3d5166;
     border: 1px solid var(--border);
     border-left: 3px solid var(--accent-blue);
   }
@@ -137,7 +137,7 @@
   }
 
   .figure-caption {
-    font-size: 0.84rem; color: var(--muted); line-height: 1.65;
+    font-size: 0.95rem; color: var(--muted); line-height: 1.65;
     border-top: 1px solid var(--border); padding-top: 16px; margin-top: 20px;
     font-family: 'Source Serif 4', Georgia, serif;
   }
@@ -149,8 +149,8 @@
   .stage-card-2 { background: rgba(255,255,255,0.95); border-color: var(--blue2); }
 
   .stage-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; color: var(--accent-blue); }
-  .stage-title { font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; color: var(--text); }
-  .stage-body { font-size: 0.95rem; color: #3d5166; line-height: 1.85; }
+  .stage-title { font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+  .stage-body { font-size: 1.2rem; color: #3d5166; line-height: 1.85; }
   .stage-body strong { color: var(--text); font-weight: 500; }
 
   .pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
@@ -277,7 +277,7 @@
     <div class="figure-wrap">
       <img src="intro_01.png" class="paper-img" alt="Figure 1: Three video reward modeling paradigms">
       <div class="figure-caption">
-        <strong>Figure 1:</strong> Three video reward modeling paradigms. Discriminative RMs score directly without reasoning. Generative RMs couple CoT and scoring in one autoregressive chain. DeScore decouples them: CoT is generated first, then a dedicated scoring head predicts the scalar reward.
+        <strong>Figure 1:</strong> <strong>Overview and Motivation of DeScore.</strong> (a) Video Reward Modeling Paradigms. Existing video reward models generally follow two paradigms: Discriminative RMs directly regress rewards without explicit thinking (e.g., CoT), and Generative RMs couple thinking and scoring within a single autoregressive sampling chain. DeScore improves both paradigms based on two observations: First, (b) <strong>Preference Accuracy</strong> shows that incorporating CoT enables Generative RMs to outperform Discriminative RMs, highlighting the necessity of explicit thinking for generalization. Second, (c) <strong>Training Stability</strong> reveals that coupling thinking and scoring requires the final score to be optimized through GRPO loss, leading to pronounced training fluctuations. In contrast, discriminative training with BT loss exhibits smooth convergence. Motivated by these findings, DeScore introduces a decoupled “think-then-score” paradigm that effectively leverages the generalization benefits of CoT reasoning while preserving the training stability inherent to discriminative optimization.
       </div>
     </div>
   </div>
@@ -293,7 +293,7 @@
     <div class="figure-wrap">
       <img src="method_01.png" class="paper-img" alt="Figure 2: DeScore training framework">
       <div class="figure-caption">
-        <strong>Figure 2:</strong> DeScore framework. <strong>(a)</strong> During inference, the MLLM generates CoT from multimodal input, then a learnable query token's hidden state is projected to the final reward. Training follows two stages: <strong>(b)</strong> discriminative cold-start with BT loss and random CoT masking; <strong>(c)</strong> dual-objective RL with GRPO refining CoT and auxiliary BT loss calibrating the reward.
+        <strong>Figure 2: Our DeScore framework.</strong> (a) During inference, DeScore first uses an MLLM to generate CoT from the multi-modal input, then appends a learnable query token whose last hidden state is projected by a regression head into the final video reward. Training follows a two-stage paradigm: (b) In the discriminative cold-start stage, DeScore is trained with BT loss on pre-collected CoT data, where random CoT masking encourages the scoring module to use both multi-modal inputs and reasoning tokens. (c) In the dual-objective RL stage, the GRPO loss optimizes CoT rollouts guided by rule-based rollout rewards, while the BT loss simultaneously calibrates the video reward, decoupling reasoning refinement from reward scoring.
       </div>
     </div>
 
@@ -302,23 +302,12 @@
         <div class="stage-num">Stage 1</div>
         <div class="stage-title">Discriminative Cold Start</div>
         <p class="stage-body">Fine-tunes the backbone and scoring module on pre-collected CoT data using <strong>Bradley-Terry (BT) loss</strong>. A <strong>random CoT masking</strong> strategy randomly drops the CoT during training, forcing the module to jointly leverage raw multimodal inputs and reasoning tokens — preventing over-reliance on either source and improving robustness.</p>
-        <div class="pill-row">
-          <span class="pill pill-blue">BT Loss</span>
-          <span class="pill pill-blue">LoRA rank=64</span>
-          <span class="pill pill-blue">2 epochs · lr=2e-6</span>
-          <span class="pill pill-blue">Random CoT Mask</span>
-        </div>
       </div>
 
       <div class="stage-card stage-card-2">
         <div class="stage-num">Stage 2</div>
         <div class="stage-title">Dual-Objective Reinforcement Learning</div>
         <p class="stage-body">Two independent objectives run simultaneously. <strong>GRPO loss</strong> refines CoT quality guided by rule-based rollout rewards. <strong>Auxiliary BT loss</strong> continuously calibrates the scalar reward head, ensuring CoT improvements translate directly to reward accuracy and preventing "reward drift."</p>
-        <div class="pill-row">
-          <span class="pill pill-blue2">GRPO (α=1.0)</span>
-          <span class="pill pill-blue2">Aux BT (α=0.005)</span>
-          <span class="pill pill-blue2">G=8 rollouts · 65 steps</span>
-        </div>
         <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--blue2);">
           <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-blue2);margin-bottom:12px;">
             Composite Rollout Reward R(o) — three rule-based signals
@@ -389,6 +378,20 @@
     </div>
     <p style="margin-top:12px;font-size:0.82rem;color:var(--muted);">Bold = best result per column. DeScore achieves top performance across most benchmarks while using <strong style="color:var(--text)">76% less training data</strong> than comparable models.</p>
 
+    <div class="figure-wrap" style="margin-top:0;">
+        <img src="efficient_01.png" class="paper-img" alt="Preference and data size">
+        <div class="figure-caption" style="margin-top:14px;">
+        <strong>Figure: Performance vs. Training Data Size.</strong> DeScore (red star) consistently outperforms existing models by a large margin while requiring only a fraction of the training data, highlighting its extreme training efficiency and robust semantic understandin
+        </div>
+    </div>
+    
+    <div class="figure-wrap" style="margin-top:0;">
+        <img src="case_01.png" class="paper-img" alt="Case study">
+        <div class="figure-caption" style="margin-top:14px;">
+        <strong>Figure: Qualitative Comparison of Different Video Reward Models. </strong> We compare VideoAlign , UnifiedReward-Thinking , and our DeScore with high- and low-quality reasoning within these responses. DeScore consistently yields accurate rewards and robust reasoning across varied prompts, demonstrating its superior interpretability and generalization.
+        </div>
+    </div>
+
     <div style="margin-top:48px;" class="reveal">
       <h3 style="font-family:'Lora',serif;font-size:1.15rem;font-weight:600;margin-bottom:10px;color:var(--text);">Improving Video Generation Quality (VBench)</h3>
       <p>DeScore is integrated into Longcat-GRPO and Flow-DPO post-training frameworks on Wan-2.1-1.3B, consistently improving all VBench quality dimensions.</p>
@@ -420,24 +423,6 @@
       </div>
     </div>
 
-    <div style="margin-top:48px;" class="reveal">
-      <h3 style="font-family:'Lora',serif;font-size:1.15rem;font-weight:600;margin-bottom:10px;color:var(--text);">Analysis</h3>
-      <p>Qualitative cases and ablation studies on data efficiency.</p>
-      <div style="display:flex;flex-direction:column;gap:24px;margin-top:20px;">
-        <div class="figure-wrap" style="margin-top:0;">
-          <img src="case_01.png" class="paper-img" alt="Case study">
-          <div class="figure-caption" style="margin-top:14px;">
-            <strong>Figure:</strong> Qualitative case examples showing DeScore's reasoning chain and final reward prediction on representative video-prompt pairs.
-          </div>
-        </div>
-        <div class="figure-wrap" style="margin-top:0;">
-          <img src="efficient_01.png" class="paper-img" alt="Preference and data size">
-          <div class="figure-caption" style="margin-top:14px;">
-            <strong>Figure:</strong> Preference accuracy vs. training data size across reward model variants.
-          </div>
-        </div>
-      </div>
-    </div>
 
   </div>
 </section>
