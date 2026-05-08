@@ -9,14 +9,14 @@
 <style>
   :root {
     --bg: #ffffff;
-    --green:   #eef6f0;
-    --green2:  #d0e8d8;
-    --green3:  #8fc4a0;
-    --accent:  #2d7a4f;
-    --accent2: #1a5235;
-    --border:  #c8e0d0;
-    --text:    #0f1f15;
-    --muted:   #5a7060;
+    --green:   #f5f5f5;
+    --green2:  #e0e0e0;
+    --green3:  #aaaaaa;
+    --accent:  #1a1a1a;
+    --accent2: #444444;
+    --border:  #e0e0e0;
+    --text:    #0f0f0f;
+    --muted:   #6b6b6b;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -31,14 +31,14 @@
   }
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(255,255,255,0.95);
+    background: #fff;
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     padding: 0 40px;
     display: flex; align-items: center; justify-content: space-between;
     height: 60px;
   }
-  .nav-logo img { height: 400px; width: auto; display: block; }
+  .nav-logo img { height: 44px; width: auto; display: block; }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.15s; font-family: 'DM Mono', monospace; }
   .nav-links a:hover { color: var(--text); }
@@ -52,7 +52,7 @@
   }
   .venue-tag {
     display: inline-flex; align-items: center; gap: 7px;
-    background: rgba(255,255,255,0.9); border: 1px solid var(--green3);
+    background: #fff; border: 1px solid var(--green3);
     border-radius: 999px; padding: 5px 16px;
     font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--accent); margin-bottom: 32px; animation: fadeUp 0.7s ease both;
@@ -90,9 +90,9 @@
     text-decoration: none; cursor: pointer; transition: all 0.18s; border: none;
   }
   .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(45,122,79,0.3); }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
   .btn-secondary { background: var(--text); color: #fff; }
-  .btn-secondary:hover { background: #1e3828; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(15,31,21,0.3); }
+  .btn-secondary:hover { background: #1e3828; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
 
   section { padding: 72px 24px; }
   .container { max-width: 900px; margin: 0 auto; }
@@ -107,7 +107,7 @@
     font-weight: 600; line-height: 1.25; letter-spacing: -0.01em;
     margin-bottom: 18px; color: var(--text);
   }
-  p { color: #2a3d2e; margin-bottom: 14px; font-size: 1rem; line-height: 1.85; }
+  p { color: #333333; margin-bottom: 14px; font-size: 1rem; line-height: 1.85; }
 
   .figure-wrap {
     border: 1px solid var(--border);
@@ -133,7 +133,7 @@
   }
 
   /* Abstract plain text */
-  .abstract-body { font-size: 1rem; line-height: 1.9; color: #2a3d2e; }
+  .abstract-body { font-size: 1rem; line-height: 1.9; color: #333333; }
   .abstract-body strong { color: var(--text); font-weight: 600; }
 
   /* Stage cards */
@@ -143,21 +143,21 @@
   .stage-card-2 { background: #fff; }
   .stage-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; color: var(--accent); }
   .stage-title { font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; color: var(--text); }
-  .stage-body { font-size: 1rem; color: #2a3d2e; line-height: 1.85; }
+  .stage-body { font-size: 1rem; color: #333333; line-height: 1.85; }
   .stage-body strong { color: var(--text); font-weight: 600; }
 
   .pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
   .pill { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 11px; border-radius: 999px; }
-  .pill-1 { background: transparent; border: 1px solid rgba(45,122,79,0.25); color: var(--accent); }
-  .pill-2 { background: rgba(26,82,53,0.06); border: 1px solid rgba(26,82,53,0.2); color: var(--accent2); }
+  .pill-1 { background: transparent; border: 1px solid rgba(0,0,0,0.15); color: var(--accent); }
+  .pill-2 { background: #fff; border: 1px solid rgba(0,0,0,0.12); color: #444444; }
 
   /* Reward grid */
   .reward-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 20px; }
   @media(max-width:600px){ .reward-grid { grid-template-columns: 1fr; } }
   .reward-card { background: #fff; border: 1px solid var(--green2); border-radius: 9px; padding: 15px 13px; }
   .reward-icon { font-size: 1.1rem; margin-bottom: 6px; }
-  .reward-name { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.05em; color: var(--accent2); margin-bottom: 6px; }
-  .reward-desc { font-size: 0.8rem; color: #3a5240; }
+  .reward-name { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.05em; color: #444444; margin-bottom: 6px; }
+  .reward-desc { font-size: 0.8rem; color: #444444; }
 
   /* Results table */
   .results-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); margin-top: 24px; }
@@ -171,11 +171,11 @@
   thead th:first-child { text-align: left; }
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: rgba(0,0,0,0.02); }
-  td { padding: 11px 14px; text-align: center; color: #3a5240; }
+  tbody tr:hover { background: #fff; }
+  td { padding: 11px 14px; text-align: center; color: #444444; }
   td:first-child { text-align: left; color: var(--text); }
   .group-header td {
-    background: #f9f9f9; color: var(--muted);
+    background: #fff; color: var(--muted);
     font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
     padding: 7px 14px; border-top: 1px solid var(--border);
   }
@@ -186,9 +186,9 @@
 
   /* Citation */
   .citation-box {
-    background: #f9f9f9; border: 1px solid var(--border); border-radius: 12px;
+    background: #fff; border: 1px solid var(--border); border-radius: 12px;
     padding: 22px 26px; font-family: 'DM Mono', monospace; font-size: 0.79rem; line-height: 1.9;
-    color: #3a5240; position: relative; overflow-x: auto; margin-top: 22px;
+    color: #444444; position: relative; overflow-x: auto; margin-top: 22px;
   }
   .copy-btn {
     position: absolute; top: 14px; right: 14px; background: #fff; border: 1px solid var(--border);
@@ -208,7 +208,7 @@
 <body>
 
 <nav>
-  <div class="nav-logo"><img src="logo.png" alt="DeScore"></div>
+  <div class="nav-logo" style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.08em;color:var(--accent);">DeScore</div>
   <ul class="nav-links">
     <li><a href="#abstract">Abstract</a></li>
     <li><a href="#overview">Overview</a></li>
@@ -220,7 +220,8 @@
 
 <div class="hero">
   <div class="venue-tag"><span class="venue-dot"></span>arXiv:2605.05922 · May 2026</div>
-  <h1>Think, then Score:<br><em>Decoupled Reasoning and Scoring</em><br>for Video Reward Modeling</h1>
+  <img src="logo.png" alt="DeScore" style="height:90px;width:auto;margin:0 auto 28px;display:block;">
+  <h1>Think, then Score:<br><em>Decoupled Reasoning &amp; Scoring</em><br>for Video Reward Modeling</h1>
   <p class="hero-subtitle">A training-efficient and generalizable video reward model that separates CoT reasoning from final reward prediction.</p>
   <div class="authors">
     <span class="author">Yuan Wang<sup>1,2*§</sup></span>
@@ -317,7 +318,7 @@
           <span class="pill pill-2">Aux BT (α=0.005)</span>
           <span class="pill pill-2">G=8 rollouts · 65 steps</span>
         </div>
-        <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--green2);">
+        <div style="margin-top:24px; padding-top:20px; border-top:1px solid #e0e0e0;">
           <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:12px;">
             Composite Rollout Reward R(o) — three rule-based signals
           </div>
