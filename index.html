@@ -38,7 +38,7 @@
     display: flex; align-items: center; justify-content: space-between;
     height: 60px;
   }
-  .nav-logo img { height: 44px; width: auto; display: block; }
+  .nav-logo img { height: 100px; width: auto; display: block; }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.15s; font-family: 'DM Mono', monospace; }
   .nav-links a:hover { color: var(--text); }
@@ -302,22 +302,11 @@
         <div class="stage-num">Stage 1</div>
         <div class="stage-title">Discriminative Cold Start</div>
         <p class="stage-body">Fine-tunes the backbone and scoring module on pre-collected CoT data using <strong>Bradley-Terry (BT) loss</strong>. A <strong>random CoT masking</strong> strategy randomly drops the CoT during training, forcing the module to jointly leverage raw multimodal inputs and reasoning tokens — preventing over-reliance on either source and improving robustness.</p>
-        <div class="pill-row">
-          <span class="pill pill-1">BT Loss</span>
-          <span class="pill pill-1">LoRA rank=64</span>
-          <span class="pill pill-1">2 epochs · lr=2e-6</span>
-          <span class="pill pill-1">Random CoT Mask</span>
-        </div>
       </div>
       <div class="stage-card stage-card-2">
         <div class="stage-num">Stage 2</div>
         <div class="stage-title">Dual-Objective Reinforcement Learning</div>
         <p class="stage-body">Two independent objectives run simultaneously. <strong>GRPO loss</strong> refines CoT quality guided by rule-based rollout rewards. <strong>Auxiliary BT loss</strong> continuously calibrates the scalar reward head, ensuring CoT improvements translate directly to reward accuracy and preventing "reward drift."</p>
-        <div class="pill-row">
-          <span class="pill pill-2">GRPO (α=1.0)</span>
-          <span class="pill pill-2">Aux BT (α=0.005)</span>
-          <span class="pill pill-2">G=8 rollouts · 65 steps</span>
-        </div>
         <div style="margin-top:24px; padding-top:20px; border-top:1px solid #e0e0e0;">
           <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:12px;">
             Composite Rollout Reward R(o) — three rule-based signals
