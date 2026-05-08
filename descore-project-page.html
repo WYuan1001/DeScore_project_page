@@ -372,7 +372,7 @@
     <p>Existing models follow two paradigms each with critical drawbacks. DeScore decouples CoT reasoning from scoring to get the best of both worlds.</p>
 
     <div class="figure-wrap">
-      <img src="fig-intro.png" class="paper-img">
+      <img src="intro.pdf" class="paper-img">
       <div class="figure-caption">
         <strong>Figure 1:</strong> Three video reward modeling paradigms. Discriminative RMs score directly without reasoning. Generative RMs couple CoT and scoring in one autoregressive chain. DeScore decouples them: CoT is generated first, then a dedicated scoring head predicts the scalar reward.
       </div>
@@ -390,7 +390,7 @@
     <p>An MLLM generates chain-of-thought reasoning, then a learnable query token's hidden state is projected to a scalar reward via a regression head — trained across two stages.</p>
 
     <div class="figure-wrap">
-      <img src="fig-method.png" class="paper-img">
+      <img src="method.pdf" class="paper-img">
       <div class="figure-caption">
         <strong>Figure 2:</strong> DeScore framework. <strong>(a)</strong> During inference, the MLLM generates CoT from multimodal input, then a learnable query token's hidden state is projected to the final reward. Training follows two stages: <strong>(b)</strong> discriminative cold-start with BT loss and random CoT masking; <strong>(c)</strong> dual-objective RL with GRPO refining CoT and auxiliary BT loss calibrating the reward.
       </div>
@@ -537,7 +537,7 @@
 
         <!-- Case study figure -->
         <div class="figure-wrap" style="margin-top:0;">
-          <img src="fig-case.png" class="paper-img">
+          <img src="case.png" class="paper-img">
           <div class="figure-caption" style="margin-top:14px;">
             <strong>Figure:</strong> Qualitative case examples showing DeScore's reasoning chain and final reward prediction on representative video-prompt pairs.
           </div>
@@ -545,7 +545,7 @@
 
         <!-- Preference & Data Size figure -->
         <div class="figure-wrap" style="margin-top:0;">
-          <img src="fig-pref.png" class="paper-img">
+          <img src="efficient.png" class="paper-img">
           <div class="figure-caption" style="margin-top:14px;">
             <strong>Figure:</strong> Preference accuracy vs. training data size across reward model variants.
           </div>
