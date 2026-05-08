@@ -372,16 +372,7 @@
     <p>Existing models follow two paradigms each with critical drawbacks. DeScore decouples CoT reasoning from scoring to get the best of both worlds.</p>
 
     <div class="figure-wrap">
-      <div class="img-placeholder" id="fig1-placeholder">
-        <input type="file" accept="image/*" onchange="loadImage(event,'fig1-placeholder')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <rect x="3" y="3" width="18" height="18" rx="3"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span>Click to upload Figure 1</span>
-        <span class="placeholder-label">Three Paradigms Comparison</span>
-      </div>
+      <img src="fig-intro.png" class="paper-img">
       <div class="figure-caption">
         <strong>Figure 1:</strong> Three video reward modeling paradigms. Discriminative RMs score directly without reasoning. Generative RMs couple CoT and scoring in one autoregressive chain. DeScore decouples them: CoT is generated first, then a dedicated scoring head predicts the scalar reward.
       </div>
@@ -399,16 +390,7 @@
     <p>An MLLM generates chain-of-thought reasoning, then a learnable query token's hidden state is projected to a scalar reward via a regression head — trained across two stages.</p>
 
     <div class="figure-wrap">
-      <div class="img-placeholder" id="fig2-placeholder">
-        <input type="file" accept="image/*" onchange="loadImage(event,'fig2-placeholder')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <rect x="3" y="3" width="18" height="18" rx="3"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span>Click to upload Figure 2</span>
-        <span class="placeholder-label">DeScore Framework Pipeline</span>
-      </div>
+      <img src="fig-method.png" class="paper-img">
       <div class="figure-caption">
         <strong>Figure 2:</strong> DeScore framework. <strong>(a)</strong> During inference, the MLLM generates CoT from multimodal input, then a learnable query token's hidden state is projected to the final reward. Training follows two stages: <strong>(b)</strong> discriminative cold-start with BT loss and random CoT masking; <strong>(c)</strong> dual-objective RL with GRPO refining CoT and auxiliary BT loss calibrating the reward.
       </div>
@@ -493,21 +475,21 @@
         </thead>
         <tbody>
           <tr class="group-header"><td colspan="6">Discriminative Video Reward Models</td></tr>
-          <tr><td>VideoScore</td><td>0.552</td><td>0.720</td><td>0.372</td><td>0.503</td><td>—</td></tr>
-          <tr><td>VideoAlign</td><td>0.642</td><td>0.728</td><td>0.538</td><td>0.722</td><td>—</td></tr>
+          <tr><td>VideoScore</td><td>0.552</td><td>0.490</td><td>0.720</td><td>0.372</td><td>0.503</td></tr>
+          <tr><td>VideoAlign</td><td>0.642</td><td>0.494</td><td>0.728</td><td>0.538</td><td>0.722</td></tr>
           <tr class="group-header"><td colspan="6">Generative Video Reward Models</td></tr>
-          <tr><td>VisionReward</td><td>0.571</td><td>0.724</td><td>0.465</td><td>0.611</td><td>—</td></tr>
-          <tr><td>UnifiedReward</td><td>0.492</td><td>0.686</td><td>0.303</td><td>0.564</td><td>—</td></tr>
-          <tr><td>UnifiedReward-Thinking</td><td>0.578</td><td><span class="best">0.709</span></td><td>0.428</td><td>0.582</td><td>—</td></tr>
-          <tr><td>VideoScore2</td><td>0.617</td><td>0.616</td><td>0.301</td><td>0.497</td><td>—</td></tr>
+          <tr><td>VisionReward</td><td>0.571</td><td>0.525</td><td>0.724</td><td>0.465</td><td>0.611</td></tr>
+          <tr><td>UnifiedReward</td><td>0.492</td><td>0.458</td><td>0.686</td><td>0.303</td><td>0.564</td></tr>
+          <tr><td>UnifiedReward-Thinking</td><td>0.578</td><td><span class="best">0.548</span></td><td><span class="best">0.709</span></td><td>0.428</td><td>0.582</td></tr>
+          <tr><td>VideoScore2</td><td>0.617</td><td>0.391</td><td>0.616</td><td>0.301</td><td>0.497</td></tr>
           <tr class="group-header"><td colspan="6">Our Method</td></tr>
           <tr class="model-ours">
             <td>DeScore (Ours)</td>
             <td><span class="best">0.734</span></td>
-            <td>0.765</td>
+            <td>0.504</td>
+            <td><span class="best">0.765</span></td>
             <td><span class="best">0.568</span></td>
             <td><span class="best">0.768</span></td>
-            <td>—</td>
           </tr>
         </tbody>
       </table>
@@ -555,16 +537,7 @@
 
         <!-- Case study figure -->
         <div class="figure-wrap" style="margin-top:0;">
-          <div class="img-placeholder" id="fig-case-placeholder">
-            <input type="file" accept="image/*" onchange="loadImage(event,'fig-case-placeholder')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-              <rect x="3" y="3" width="18" height="18" rx="3"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <path d="M21 15l-5-5L5 21"/>
-            </svg>
-            <span>Click to upload</span>
-            <span class="placeholder-label">Case Study</span>
-          </div>
+          <img src="fig-case.png" class="paper-img">
           <div class="figure-caption" style="margin-top:14px;">
             <strong>Figure:</strong> Qualitative case examples showing DeScore's reasoning chain and final reward prediction on representative video-prompt pairs.
           </div>
@@ -572,16 +545,7 @@
 
         <!-- Preference & Data Size figure -->
         <div class="figure-wrap" style="margin-top:0;">
-          <div class="img-placeholder" id="fig-pref-placeholder">
-            <input type="file" accept="image/*" onchange="loadImage(event,'fig-pref-placeholder')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-              <rect x="3" y="3" width="18" height="18" rx="3"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <path d="M21 15l-5-5L5 21"/>
-            </svg>
-            <span>Click to upload</span>
-            <span class="placeholder-label">Preference &amp; Data Size</span>
-          </div>
+          <img src="fig-pref.png" class="paper-img">
           <div class="figure-caption" style="margin-top:14px;">
             <strong>Figure:</strong> Preference accuracy vs. training data size across reward model variants.
           </div>
