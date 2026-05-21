@@ -1,26 +1,45 @@
 # DeScore
 
-> **Think, then Score: Decoupled Reasoning and Scoring for Video Reward Modeling**
-> [\[Paper\]](https://arxiv.org/abs/2605.05922) [\[Project Page\]](https://wyuan1001.github.io/DeScore/)
+<div align="center">
 
-DeScore is a video reward model that uses a decoupled *"Think-then-Score"* paradigm: an MLLM (Qwen3-VL-8B) first generates a Chain-of-Thought (CoT), then a learnable `<Reward>` token + regression head outputs the final scalar reward. Training follows two stages:
-1. **Stage 1 — Discriminative Cold Start** (`cold_start/`): LoRA fine-tuning with BT loss on pre-collected CoT data
-2. **Stage 2 — Dual-Objective RL** (`dual_rl/`): GRPO for CoT quality + auxiliary BT loss for reward calibration
+**Think, then Score: Decoupled Reasoning and Scoring for Video Reward Modeling**
+
+[\[📄 Paper\]](https://arxiv.org/abs/2605.05922) &nbsp; [\[🌐 Project Page\]](https://wyuan1001.github.io/DeScore/)
+
+</div>
+
+---
+
+## Overview
+
+DeScore is a video reward model built on a decoupled *"Think-then-Score"* paradigm:
+1. An MLLM (Qwen3-VL-8B) first generates a Chain-of-Thought (CoT) for the input video
+2. A learnable `<Reward>` query token + regression head then predicts the final scalar reward **independently** from the CoT generation
+
+Training follows a two-stage framework:
+- **Stage 1 — Discriminative Cold Start** (`cold_start/`): LoRA fine-tuning with BT loss on pre-collected CoT data, with random CoT masking for robustness
+- **Stage 2 — Dual-Objective RL** (`dual_rl/`): GRPO to refine CoT quality + auxiliary BT loss to calibrate the reward head
 
 ---
 
 ## Motivation
 
+<p align="center">
+  <img src="figure/intro.png" width="85%" alt="DeScore Motivation"/>
+</p>
+
 Existing video reward models face a fundamental dilemma:
-![image](figure/intro.pdf)
-First, (b) Preference Accuracy shows that incorporating CoT enables Generative RMs to outperform Discriminative RMs, highlighting the necessity of explicit thinking for generalization. Second, (c) Training Stability reveals that coupling thinking and scoring requires the final score to be optimized through GRPO loss, leading to pronounced training fluctuations. In contrast, discriminative training with BT loss exhibits smooth convergence. Motivated by these findings, DeScore introduces a decoupled "think-then-score" paradigm that effectively leverages the generalization benefits of CoT reasoning while preserving the training stability inherent to discriminative optimization.
 
-DeScore resolves this dilemma with a **decoupled "Think-then-Score"** design:
-- The MLLM backbone generates an explicit CoT, providing fine-grained semantic rationales
-- A dedicated `<Reward>` query token + regression head predicts the scalar reward **independently** from the CoT
-- The scoring module is optimized directly via stable BT loss, completely **bypassing** GRPO's high-variance policy gradient
+| Paradigm | Representative Works | Advantage | Disadvantage |
+|:---|:---|:---|:---|
+| **Discriminative RM** | VideoScore, VideoAlign | Stable optimization via BT/MSE loss | No explicit reasoning; prone to shortcut learning; heavily data-dependent |
+| **Generative RM** | UnifiedReward-Thinking, VideoScore2 | CoT improves interpretability & generalization | Training instability; high-variance GRPO gradients; credit assignment difficulty |
 
-This decoupling preserves the generalization benefits of CoT reasoning while maintaining the optimization stability of discriminative regression — achieving **+5.4% accuracy on VideoGen-Bench** over the best generative baseline while using **76% less training data**.
+As shown in the figure above:
+- **(b) Preference Accuracy**: Incorporating CoT enables Generative RMs to outperform Discriminative RMs, highlighting the necessity of explicit thinking for generalization.
+- **(c) Training Stability**: Coupling thinking and scoring in one chain forces reliance on GRPO, causing pronounced training fluctuations. BT loss converges smoothly.
+
+DeScore resolves this by **decoupling** reasoning from scoring — the scoring module receives a direct gradient via BT loss, completely bypassing GRPO's high-variance policy gradient. This achieves **+5.4% accuracy on VideoGen-Bench** over the best generative baseline while using **76% less training data**.
 
 ---
 
@@ -28,31 +47,37 @@ This decoupling preserves the generalization benefits of CoT reasoning while mai
 
 ```
 DeScore/
-├── inference.py                    # Inference entry point
-├── inference.sh                    # Inference launch script
-├── cold_start/                # Stage 1: Cold start training
-│   ├── train_reward.py        # Main training entry
-│   ├── trainer_qwen3.py       # Reward model + trainer
-│   ├── data.py                # Data loading & collator
-│   ├── utils.py               # Config dataclasses
-│   ├── vision_process.py      # Video preprocessing
-│   ├── train.sh               # Launch script
-│   ├── ds_config/             # DeepSpeed ZeRO configs 
-│   ├── infer_utils/           
+├── cold_start/                    # Stage 1: Discriminative Cold Start
+│   ├── train_reward.py            # Main training entry
+│   ├── trainer_qwen3.py           # Reward model + trainer
+│   ├── data.py                    # Data loading & collator
+│   ├── utils.py                   # Config dataclasses
+│   ├── vision_process.py          # Video preprocessing
+│   ├── train.sh                   # Launch script
+│   ├── env.yaml                   # Conda environment
+│   ├── requirements.txt           # pip dependencies
+│   ├── ds_config/                 # DeepSpeed ZeRO configs (zero0/2/3)
+│   ├── infer_utils/               # Inference utilities
 │   ├── datasets/
-│   │   ├── train/             # Training data (CSV + videos)
-│   │   └── eval/              # Eval benchmark
-│   └── model/                 # Place base model here
+│   │   ├── train/                 # Training data (CSV + videos)
+│   │   └── eval/                  # Eval benchmark
+│   └── model/                     # Place base model here
 │
-└── dual_rl/                   # Stage 2: RL fine-tuning
-    ├── examples/
-    │   ├── config.yaml        # Full training config
-    │   ├── train.sh           # RL training launch script
-    │   ├── format_prompt/     # Jinja2 prompt templates
-    │   └── reward_function/
-    │       └── r1ta_subdim_head.py  # Composite reward function
-    ├── verl/                  # Customized RL framework 
-    └── data/                  # Place train/test CSVs here
+├── dual_rl/                       # Stage 2: Dual-Objective RL
+│   ├── inference.py               # Inference entry point
+│   ├── inference.sh               # Inference launch script
+│   ├── env.yaml                   # Conda environment
+│   ├── requirements.txt           # pip dependencies
+│   ├── examples/
+│   │   ├── config.yaml            # Full training config
+│   │   ├── train.sh               # RL training launch script
+│   │   ├── format_prompt/         # Jinja2 prompt templates
+│   │   └── reward_function/
+│   │       └── r1ta_subdim_head.py  # Composite reward function
+│   ├── verl/                      # Customized RL framework (Ray + FSDP + vLLM)
+│   └── data/                      # Place train/test CSVs here
+│
+└── figure/                        # Figures for README
 ```
 
 ---
@@ -63,17 +88,17 @@ DeScore/
 
 We recommend using two separate environments for the two stages.
 
-**Stage 1 (cold start):**
+**Stage 1 — Cold Start:**
 ```bash
 conda env create -f cold_start/env.yaml
 conda activate Descore_cs
 pip install -r cold_start/requirements.txt
 ```
 
-**Stage 2 (dual RL):**
+**Stage 2 — Dual-Objective RL:**
 ```bash
 conda env create -f dual_rl/env.yaml
-conda activate Descore_rl
+conda activate qwen3
 pip install -r dual_rl/requirements.txt
 ```
 
@@ -87,18 +112,31 @@ cd ../..
 ```
 
 ### 3. Prepare Training Data
-The CSV requires columns: `videos`, `problem`, `durations`, `prompt`, `CoT_A`, `CoT_B`, `GSB`.
-See [`cold_start/datasets/train/README.md`](cold_start/datasets/train/README.md) and [`cold_start/datasets/train/example.csv`](cold_start/datasets/train/example.csv) for details.
+
+Organize your data under `cold_start/datasets/train/`:
+
+```
+cold_start/datasets/train/
+├── your_data.csv
+└── videos/
+    ├── video_1_A.mp4
+    ├── video_1_B.mp4
+    └── ...
+```
+
+See [`cold_start/datasets/train/README.md`](cold_start/datasets/train/README.md) and [`cold_start/datasets/train/example.csv`](cold_start/datasets/train/example.csv) for the full CSV schema.
 
 ### 4. Stage 1 — Cold Start Training
 
 ```bash
 cd cold_start
-# Edit train.sh to set --model_name_or_path, --meta_data, --output_dir
+# Edit train.sh: set --model_name_or_path, --meta_data, --output_dir
 bash train.sh
 ```
 
-See [`cold_start/README.md`](cold_start/README.md) for all training arguments.
+Output: `checkpoint-*/` (LoRA weights + `rm_head.pth`) under `--output_dir`.
+
+> See [`cold_start/README.md`](cold_start/README.md) for all training arguments.
 
 ### 5. Stage 2 — Dual-Objective RL
 
@@ -108,7 +146,10 @@ cd dual_rl
 # Place train.csv and test.csv in dual_rl/data/
 bash examples/train.sh
 ```
-See [`dual_rl/README.md`](dual_rl/README.md) for all training arguments.
+
+Output: `results/{EXP_NAME}/global_step_{N}/actor/` (HuggingFace weights + `rm_head.pth`).
+
+> See [`dual_rl/README.md`](dual_rl/README.md) for all training arguments.
 
 ### 6. Inference
 
@@ -120,15 +161,17 @@ bash inference.sh
 
 Or run directly:
 ```bash
-python inference.py \
-    --data_path /path/to/eval.csv \
+python dual_rl/inference.py \
+    --data_path  /path/to/eval.csv \
     --model_ckpt /path/to/checkpoint/actor/huggingface \
-    --rm_ckpt /path/to/checkpoint/actor/rm_head.pth \
-    --output results/output.csv \
+    --rm_ckpt    /path/to/checkpoint/actor/rm_head.pth \
+    --output     results/output.csv \
     --batch_size 4 \
     --bench_type tabench \
     --special_token "<Reward>"
 ```
+
+---
 
 ## Citation
 
