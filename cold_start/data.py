@@ -216,8 +216,8 @@ class QWen3VLDataCollator():
 
         for idx, feature in enumerate(features):
             random_num = random.random() if self.enable_drop else None   
-            features_A.append(self._clean_message(feature["A_data"], random_drop=self.enable_drop, random_num=random_num))
-            features_B.append(self._clean_message(feature["B_data"], random_drop=self.enable_drop, random_num=random_num))
+            features_A.append(self._clean_message(feature["A_data"], random_num=random_num))
+            features_B.append(self._clean_message(feature["B_data"], random_num=random_num))
 
         # import pdb; pdb.set_trace()
         image_inputs_A, video_inputs_A, video_kwargs_A = process_vision_info(features_A, image_patch_size=16, return_video_kwargs=True, return_video_metadata=True)
