@@ -28,13 +28,6 @@ Training follows a two-stage framework:
   <img src="figure/intro.png" width="85%" alt="DeScore Motivation"/>
 </p>
 
-Existing video reward models face a fundamental dilemma:
-
-| Paradigm | Representative Works | Advantage | Disadvantage |
-|:---|:---|:---|:---|
-| **Discriminative RM** | VideoScore, VideoAlign | Stable optimization via BT/MSE loss | No explicit reasoning; prone to shortcut learning; heavily data-dependent |
-| **Generative RM** | UnifiedReward-Thinking, VideoScore2 | CoT improves interpretability & generalization | Training instability; high-variance GRPO gradients; credit assignment difficulty |
-
 As shown in the figure above:
 - **(b) Preference Accuracy**: Incorporating CoT enables Generative RMs to outperform Discriminative RMs, highlighting the necessity of explicit thinking for generalization.
 - **(c) Training Stability**: Coupling thinking and scoring in one chain forces reliance on GRPO, causing pronounced training fluctuations. BT loss converges smoothly.
