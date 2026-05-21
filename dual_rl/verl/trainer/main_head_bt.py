@@ -20,7 +20,7 @@ from omegaconf import OmegaConf
 from ..single_controller.ray import RayWorkerGroup
 from ..utils.tokenizer import get_processor, get_tokenizer
 from ..workers.fsdp_workers_head import FSDPWorker
-from ..workers.reward import BatchFunctionRewardManager, SequentialFunctionRewardManager, BatchTvarFunctionRewardManager, BatchFunctionHeadRewardManager
+from ..workers.reward import SequentialFunctionRewardManager, BatchFunctionHeadRewardManager
 from .config import PPOConfig
 from .data_loader import create_dataloader
 from .ray_trainer_head_bt import RayPPOTrainer, ResourcePoolManager, Role
@@ -68,8 +68,6 @@ class Runner:
             RewardManager = SequentialFunctionRewardManager
         elif config.worker.reward.reward_type == "batch":
             RewardManager = BatchFunctionHeadRewardManager
-        elif config.worker.reward.reward_type == 'batch_tvar':
-            RewardManager = BatchTvarFunctionRewardManager
         else:
             raise NotImplementedError(f"Unknown reward type {config.worker.reward.reward_type}.")
 
