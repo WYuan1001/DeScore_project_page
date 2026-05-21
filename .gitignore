@@ -1,0 +1,36 @@
+# Model weights & checkpoints
+cold_start/model/
+*.pth
+*.bin
+*.gguf
+
+# Training outputs
+cold_start/test_result/
+cold_start/output/
+dual_rl/results/
+
+# Large eval datasets
+cold_start/datasets/eval/VideoGen-RewardBench/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Logs
+runs/
+wandb/
+*.log
+lightning_logs/
+
+# Environment
+.env
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
