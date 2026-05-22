@@ -27,7 +27,7 @@ from torch import nn
 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
 
 from ...protocol import DataProto, batch_collate
-from ...trainer.core_algos import average_loss, compute_kl, compute_policy_loss, compute_bt_loss, compute_multi_bt_loss
+from ...trainer.core_algos import average_loss, compute_kl, compute_policy_loss, compute_bt_loss
 from ...utils import torch_functional as VF
 from ...utils.py_functional import append_to_dict
 from ...utils.seqlen_balancing import prepare_dynamic_batch, restore_dynamic_batch
