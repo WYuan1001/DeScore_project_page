@@ -920,7 +920,7 @@ class RayPPOTrainer:
                     metrics.update(val_metrics)
 
                 if self.config.trainer.save_freq > 0 and self.global_step % self.config.trainer.save_freq == 0:
-                    if check_disk_space_for_checkpoint():
+                    # if check_disk_space_for_checkpoint():
                         with timer("save_checkpoint", timing_raw):
                             self._save_checkpoint()
 
